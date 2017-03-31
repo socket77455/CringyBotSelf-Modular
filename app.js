@@ -1,4 +1,4 @@
-﻿/*
+/*
          © Copyright Adam Aharony (a.k.a. Cringy Adam)
                     All rights reserved
        Twitter: @AdamAharony, Discord: @Cringy Adam#3754
@@ -287,19 +287,20 @@ client.on('message', message => {
         const args = message.content.split(" ").slice(1);
         if (message.content.startsWith(prefix + "eval")) {
 
-            try {
-                var code = args.join(" ");
-                var evaled = eval(code);
+              try {
+                  var code = args.join(" ");
+                  var evaled = eval(code);
 
-                if (typeof evaled !== "string")
-                    evaled = require("util").inspect(evaled);
+                  if (typeof evaled !== "string")
+                      evaled = require("util").inspect(evaled);
 
-                message.channel.sendCode("xl", clean(evaled));
-            } catch (err) {
-                message.channel.sendMessage(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
-            }
+                  message.channel.sendCode("xl", clean(evaled));
+              } catch (err) {
+                  message.channel.sendMessage(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+              }
 
-        }
+          }
+      }
 })
 
 
