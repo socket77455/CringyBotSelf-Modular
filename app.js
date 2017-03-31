@@ -15,6 +15,14 @@ const package = require("./package.json")
 const version = require("./package.json").version
 
 
+function clean(text) {
+    if (typeof(text) === "string")
+        return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+    else
+        return text;
+}
+
+
 client.on('ready', () => {
     console.log(`------------------------`);
     console.log(`Logged in as ${client.user.username}#${client.user.discriminator}!`);
@@ -42,10 +50,14 @@ client.on('message', message => {
                       icon_url: client.user.avatarURL
                     },
                     color: 0x008AF3,
-                    title: "Version",
-                    description: `${package.version}`
+                    title: "CringyBot Selfbot edition info:",
+                    description: 'This selfbot is made by Adam Aharony (a.k.a. Cringy Adam).\n(Twitter: @AdamAharony)\nAiming to make the discord experience much better.',
+                    timestamp: new Date(),
+                    footer: {
+                      text: 'CringyBot Selfbot edition'
+                    }
                 }
-            })
+            });
         }
 
         if (message.content.startsWith(prefix + 'ping')) {
@@ -60,7 +72,7 @@ client.on('message', message => {
                     title: "Pong",
                     description: `${client.ping} MS.`
                 }
-            })
+            });
         }
 
 
@@ -84,7 +96,7 @@ client.on('message', message => {
                   text: 'CringyBot Selfbot edition'
                 }
               }
-          })
+          });
         }
 
         if (message.content.startsWith(prefix + 'help')) {
@@ -96,20 +108,20 @@ client.on('message', message => {
                     icon_url: client.user.avatarURL
                   },
                     color: 0x008AF3,
-                    title: "Selfbot Help",
-                    description: `**${config.prefix}git** - sends link to github.\n**${config.prefix}help** - Displays this message.\n**${config.prefix}google** - searches Google.\n**${config.prefix}nick** - changes your nickname on this server.\n**${config.prefix}game** - changes the game you're playing.\n**${config.prefix}embed** - puts messages in an embed with your user name and profile pic.\n**${config.prefix}profile** - displays info about you.\n**${config.prefix}eval** - evaluates JS code that's it.\n**${config.prefix}hammer** - sends the discord ban hammer gif.\n**${config.prefix}lewis/levis** - shows a really good pic of ya boi Lew.\n**${config.prefix}rickroll** - sends a link to the song.\n**${config.prefix}ping** - really? do you need a description for that?\n**${config.prefix}kill** - kills the selfbot.\n**${config.prefix}time** - shows the server's time.`,
+                    title: "CringyBot Selfbot edition Help",
+                    description: `**${config.prefix}info** - shows info about the bot.\n**${config.prefix}github** - sends link to github.\n**${config.prefix}help** - Displays this message.\n**${config.prefix}google** - searches Google.\n**${config.prefix}nick** - changes your nickname on this server.\n**${config.prefix}game** - changes the game you're playing.\n**${config.prefix}embed** - puts messages in an embed with your user name and profile pic.\n**${config.prefix}status** - displays info about you.\n**${config.prefix}eval** - evaluates JS code that's it.\n**${config.prefix}hammer** - sends the discord ban hammer gif.\n**${config.prefix}lewis/levis** - shows a really good pic of ya boi Lew.\n**${config.prefix}rickroll** - sends a link to the song.\n**${config.prefix}ping** - really? do you need a description for that?\n**${config.prefix}kill** - kills the selfbot.\n**${config.prefix}time** - shows the server's time.`,
                 timestamp: new Date(),
                 footer: {
                     text: 'CringyBot Selfbot edition'
                 }
             }
-        })
+        });
       }
 
 
 
 
-        if (message.content.startsWith(prefix + 'profile')) {
+        if (message.content.startsWith(prefix + 'status')) {
             message.delete();
             message.channel.sendMessage('', {
                 embed: {
@@ -144,23 +156,41 @@ client.on('message', message => {
           let args = message.content.split(" ").slice(1);
           let nickname = args.join(" ");
           message.delete();
-          message.guild.member(client.user).setNickname(nickname);
-          message.channel.sendMessage('', {
-            embed: {
-              author: {
-                name: client.user.username,
-                icon_url: client.user.avatarURL
-              },
-              color: 0x008AF3,
-              title: 'Nickname changed successfully!',
-              description: `Nickname changed to **${nickname}**!`,
-              timestamp: new Date(),
-              footer: {
-                text: 'CringyBot Selfbot edition'
+          if (!message.guild.member(client.user).hasPermission('CHANGE_NICKNAME')) {
+            message.channel.sendMessage('', {
+              embed: {
+                author: {
+                  name: client.user.username,
+                  icon_url: client.user.avatarURL
+                },
+                color: 0x008AF3,
+                title: 'No permissions',
+                description: 'I don\'t have the required permissionsto change my nickname.',
+                timestamp: new Date(),
+                footer: {
+                  text: 'CringyBot Selfbot edition'
+                }
               }
+            });
+          } else {
+              message.guild.member(client.user).setNickname(nickname);
+              message.channel.sendMessage('', {
+                embed: {
+                  author: {
+                    name: client.user.username,
+                    icon_url: client.user.avatarURL
+                  },
+                  color: 0x008AF3,
+                  title: 'Nickname changed successfully!',
+                  description: `Nickname changed to **${nickname}**!`,
+                  timestamp: new Date(),
+                  footer: {
+                    text: 'CringyBot Selfbot edition'
+                  }
+                }
+              });
             }
-          })
-        }
+          }
 
 
         if (message.content.startsWith(prefix + 'lewis') || message.content.startsWith(prefix + 'levis')) {
@@ -176,7 +206,7 @@ client.on('message', message => {
                   text: 'CringyBot Selfbot edition'
             }
           }
-        })
+        });
       }
 
         if (message.content.startsWith(prefix + 'hammer')) {
@@ -192,7 +222,7 @@ client.on('message', message => {
                     text: 'CringyBot Selfbot edition'
               }
             }
-          })
+          });
         }
 
 
@@ -209,7 +239,7 @@ client.on('message', message => {
                     description: `${moment().format('MMMM Do YYYY, h:mm:ss a')}`,
                     text: `CringyBot Selfbot edition`
                 }
-            })
+            });
         }
 
 
@@ -230,7 +260,7 @@ client.on('message', message => {
                         text: 'CringyBot Selfbot edition'
                     }
                 }
-            })
+            });
         }
 
 
@@ -240,7 +270,7 @@ client.on('message', message => {
         }
 
 
-        if (message.content.startsWith(prefix + 'git')) {
+        if (message.content.startsWith(prefix + 'github')) {
           message.delete();
           var link = "https://github.com/CringyAdam/CringyBotSelf";
           message.channel.sendMessage('', {
@@ -280,28 +310,116 @@ client.on('message', message => {
                 text: 'CringyBot Selfbot edition'
               }
             }
-          })
+          });
         }
 
 
-        const args = message.content.split(" ").slice(1);
-        if (message.content.startsWith(prefix + "eval")) {
-
-              try {
-                  var code = args.join(" ");
-                  var evaled = eval(code);
-
-                  if (typeof evaled !== "string")
-                      evaled = require("util").inspect(evaled);
-
-                  message.channel.sendCode("xl", clean(evaled));
-              } catch (err) {
-                  message.channel.sendMessage(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+        if (message.content.startsWith(prefix + 'kick')) {
+          if (message.mentions.users.size == 0) {
+            message.channel.sendMessage('', {
+              embed: {
+                author: {
+                  name: client.user.username,
+                  icon_url:client.user.avatarURL
+                },
+                color: 0x88AF3,
+                title: 'Syntax error',
+                description: 'No user mentioned. can\'t kick.',
+                timestamp: new Date(),
+                footer: {
+                  text: 'CringyBot Selfbot edition'
+                }
               }
-
+            });
           }
-      }
-})
+          let kickMember = message.guild.member(message.mentions.users.first());
+          if (!kickMember) {
+            message.channel.sendMessage('', {
+              embed: {
+                author: {
+                  name: client.user.username,
+                  icon_url:client.user.avatarURL
+                },
+                color: 0x88AF3,
+                title: 'Invalid user',
+                description: 'That user is invalid.',
+                timestamp: new Date(),
+                footer: {
+                  text: 'CringyBot Selfbot edition'
+                }
+              }
+            });
+          }
+          if (!message.guild.member(client.user).hasPermission('KICK_MEMBERS')) {
+            message.channel.sendMessage('', {
+              embed: {
+                author: {
+                  name: client.user.username,
+                  icon_url:client.user.avatarURL
+                },
+                color: 0x88AF3,
+                title: 'No permissions',
+                description: `I don\'t have the required permissions to kick ${kickMember}.`,
+                timestamp: new Date(),
+                footer: {
+                  text: 'CringyBot Selfbot edition'
+                }
+              }
+            });
+          }
+          message.delete();
+          kickMember.kick().then(member => {
+            message.channel.sendMessage('', {
+              embed: {
+                author: {
+                  name: client.user.username,
+                  icon_url:client.user.avatarURL
+                },
+                color: 0x88AF3,
+                title: `Successfully kicked ${kickMember}`,
+                description: 'Ohh, that felt good.',
+                timestamp: new Date(),
+                footer: {
+                  text: 'CringyBot Selfbot edition'
+                }
+              }
+            });
+          });
+
+        }
+
+
+        if (message.content.startsWith(prefix + 'eval')) {
+          const args = message.content.split(" ").slice(1);
+          try {
+                var code = args.join(" ");
+                var evaled = eval(code);
+                if (typeof evaled !== "string") {
+                    evaled = require("util").inspect(evaled);
+                } else if (evaled == 'client.token' || evaled == 'token') {
+                  message.channel.sendMessage('', {
+                    embed: {
+                      author: {
+                        name: client.user.username,
+                        icon_url:client.user.avatarURL
+                      },
+                      color: 0x88AF3,
+                      title: 'Security warning!',
+                      description: 'Successfully blocked token leak!',
+                      timestamp: new Date(),
+                      footer: {
+                        text: 'CringyBot Selfbot edition'
+                      }
+                    }
+                  });
+                }
+                message.channel.sendCode("xl", clean(evaled));
+            } catch (err) {
+                message.channel.sendMessage(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+            }
+
+        }
+  });
 
 
 client.login(token);
