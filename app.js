@@ -242,7 +242,7 @@ client.on('message', message => {
 
         if (message.content.startsWith(prefix + 'git')) {
           message.delete();
-          var link = "https://github.com/AdamAharony/CringyBotSelf";
+          var link = "https://github.com/CringyAdam/CringyBotSelf";
           message.channel.sendMessage('', {
             embed: {
               author: {
