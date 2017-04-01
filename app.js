@@ -109,7 +109,7 @@ client.on('message', message => {
                   },
                     color: 0x008AF3,
                     title: "CringyBot Selfbot edition Help",
-                    description: `**${config.prefix}info** - shows info about the bot.\n**${config.prefix}github** - sends link to github.\n**${config.prefix}help** - Displays this message.\n**${config.prefix}google** - searches Google.\n**${config.prefix}nick** - changes your nickname on this server.\n**${config.prefix}game** - changes the game you're playing.\n**${config.prefix}embed** - puts messages in an embed with your user name and profile pic.\n**${config.prefix}status** - displays info about you.\n**${config.prefix}eval** - evaluates JS code that's it.\n**${config.prefix}hammer** - sends the discord ban hammer gif.\n**${config.prefix}lewis/levis** - shows a really good pic of ya boi Lew.\n**${config.prefix}rickroll** - sends a link to the song.\n**${config.prefix}ping** - really? do you need a description for that?\n**${config.prefix}kill** - kills the selfbot.\n**${config.prefix}time** - shows the server's time.`,
+                    description: `**${config.prefix}info** - shows info about the bot.\n**${config.prefix}github** - sends link to github.\n**${config.prefix}help** - Displays this message.\n**${config.prefix}google** - searches Google.\n**${config.prefix}nick** - changes your nickname on this server.\n**${config.prefix}game** - changes the game you're playing.\n**${config.prefix}embed** - puts messages in an embed with your user name and profile pic.\n**${config.prefix}status** - displays info about you.\n**${config.prefix}eval** - evaluates JS code that's it.\n**${config.prefix}hammer** - sends the discord ban hammer gif.\n**${config.prefix}lenny - sends a bold lenny face.**\n**${config.prefix}lewis/levis** - shows a really good pic of ya boi Lew.\n**${config.prefix}rickroll** - sends a link to the song.\n**${config.prefix}ping** - really? do you need a description for that?\n**${config.prefix}kill** - kills the selfbot.\n**${config.prefix}time** - shows the server's time.`,
                 timestamp: new Date(),
                 footer: {
                     text: 'CringyBot Selfbot edition'
@@ -281,7 +281,7 @@ client.on('message', message => {
               },
               color: 0x008AF3,
               title: 'Github repository link:',
-              description: `Click [here](${link}) to go to the Github repository.`,
+              description: `Click [here](${link}) to go to the CringyBotSelf Github repository.`,
               timestamp: new Date,
               footer: {
                 text: 'CringyBot Selfbot edition'
@@ -311,6 +311,12 @@ client.on('message', message => {
               }
             }
           });
+        }
+
+
+        if (message.content.startsWith(prefix + 'lenny')) {
+          message.delete();
+          message.channel.sendMessage('**( ͡° ͜ʖ ͡°)**');
         }
 
 
@@ -396,7 +402,7 @@ client.on('message', message => {
                 var evaled = eval(code);
                 if (typeof evaled !== "string") {
                     evaled = require("util").inspect(evaled);
-                } else if (evaled == 'client.token' || evaled == 'token') {
+                } else if (code == 'client.token' || code == 'token' || evaled == 'client.token' || evaled == 'token') {
                   message.channel.sendMessage('', {
                     embed: {
                       author: {
@@ -412,6 +418,7 @@ client.on('message', message => {
                       }
                     }
                   });
+                  return;
                 }
                 message.channel.sendCode("xl", clean(evaled));
             } catch (err) {
@@ -423,3 +430,4 @@ client.on('message', message => {
 
 
 client.login(token);
+
