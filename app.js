@@ -14,7 +14,7 @@ require('moment-duration-format')
 const package = require("./package.json")
 const version = require("./package.json").version
 
-
+// Clean function for the eval command:
 function clean(text) {
     if (typeof(text) === "string")
         return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
@@ -22,6 +22,7 @@ function clean(text) {
         return text;
 }
 
+var footerText = "CringyBot Selfbot edition";
 
 client.on('ready', () => {
     console.log(`------------------------`);
@@ -36,9 +37,8 @@ client.on('message', message => {
 
         if (message.content.startsWith(prefix + 'kill')) {
             message.delete();
-            process.exit(0)
+            process.exit(0);
         }
-
 
 
         if (message.content.startsWith(prefix + 'info')) {
@@ -46,18 +46,19 @@ client.on('message', message => {
             message.channel.sendMessage('', {
                 embed: {
                     author: {
-                      name: client.user.username,
-                      icon_url: client.user.avatarURL
+                      name: client.user.username
                     },
                     color: 0x008AF3,
                     title: "CringyBot Selfbot edition info:",
                     description: 'This selfbot is made by Adam Aharony (a.k.a. Cringy Adam).\n(Twitter: @AdamAharony)\nAiming to make the discord experience much better.',
                     timestamp: new Date(),
                     footer: {
-                      text: 'CringyBot Selfbot edition'
+                      text: 'CringyBot Selfbot edition',
+                      icon_url: client.user.avatarURL
                     }
                 }
             });
+            console.log(prefix + 'info');
         }
 
         if (message.content.startsWith(prefix + 'ping')) {
@@ -73,6 +74,7 @@ client.on('message', message => {
                     description: `${client.ping} MS.`
                 }
             });
+            console.log(prefix + 'ping');
         }
 
 
@@ -85,18 +87,19 @@ client.on('message', message => {
             message.channel.sendMessage('', {
               embed: {
                 author: {
-                  name: client.user.username,
-                  icon_url: client.user.avatarURL
+                  name: client.user.username
                 },
                 color: 0x008AF3,
                 title: 'Google search results:',
                 description: `Results for **${search}**: Click [here](${link})!`,
                 timestamp: new Date(),
                 footer: {
-                  text: 'CringyBot Selfbot edition'
+                  text: 'CringyBot Selfbot edition',
+                  icon_url: client.user.avatarURL
                 }
               }
           });
+          console.log(prefix + 'ping');
         }
 
         if (message.content.startsWith(prefix + 'help')) {
@@ -104,18 +107,19 @@ client.on('message', message => {
             message.channel.sendMessage('', {
                 embed: {
                   author: {
-                    name: client.user.username,
-                    icon_url: client.user.avatarURL
+                    name: client.user.username
                   },
                     color: 0x008AF3,
                     title: "CringyBot Selfbot edition Help",
-                    description: `**${config.prefix}info** - shows info about the bot.\n**${config.prefix}github** - sends link to github.\n**${config.prefix}help** - Displays this message.\n**${config.prefix}google** - searches Google.\n**${config.prefix}nick** - changes your nickname on this server.\n**${config.prefix}game** - changes the game you're playing.\n**${config.prefix}embed** - puts messages in an embed with your user name and profile pic.\n**${config.prefix}status** - displays info about you.\n**${config.prefix}eval** - evaluates JS code that's it.\n**${config.prefix}hammer** - sends the discord ban hammer gif.\n**${config.prefix}lenny - sends a bold lenny face.**\n**${config.prefix}lewis/levis** - shows a really good pic of ya boi Lew.\n**${config.prefix}rickroll** - sends a link to the song.\n**${config.prefix}ping** - really? do you need a description for that?\n**${config.prefix}kill** - kills the selfbot.\n**${config.prefix}time** - shows the server's time.`,
+                    description: `**${config.prefix}info** - shows info about the bot.\n**${config.prefix}github** - sends link to github.\n**${config.prefix}help** - Displays this message.\n**${config.prefix}google** - searches Google.\n**${config.prefix}nick** - changes your nickname on this server.\n**${config.prefix}game** - changes the game you're playing.\n**${config.prefix}embed** - puts messages in an embed with your user name and profile pic.\n**${config.prefix}smallembed** - embeds stuff in a smaller form.\n**${config.prefix}status** - displays info about you.\n**${config.prefix}eval** - evaluates JS code that's it.\n**${config.prefix}hammer** - sends the discord ban hammer gif.\n**${config.prefix}lenny - sends a bold lenny face.**\n**${config.prefix}lewis/levis** - shows a really good pic of ya boi Lew.\n**${config.prefix}rickroll** - sends a link to the song.\n**${config.prefix}ping** - really? do you need a description for that?\n**${config.prefix}kill** - kills the selfbot.\n**${config.prefix}time** - shows the server's time.`,
                 timestamp: new Date(),
                 footer: {
-                    text: 'CringyBot Selfbot edition'
+                    text: 'CringyBot Selfbot edition',
+                    icon_url: client.user.avatarURL
                 }
             }
         });
+        console.log(prefix + 'help');
       }
 
 
@@ -126,8 +130,7 @@ client.on('message', message => {
             message.channel.sendMessage('', {
                 embed: {
                   author: {
-                    name: client.user.username,
-                    icon_url: client.user.avatarURL
+                    name: client.user.username
                   },
                     color: 0x008AF3,
                     fields: [{
@@ -145,10 +148,12 @@ client.on('message', message => {
                     ],
                     timestamp: new Date(),
                     footer: {
-                        text: 'CringyBot Selfbot edition'
+                        text: 'CringyBot Selfbot edition',
+                        icon_url: client.user.avatarURL
                     }
                 }
             });
+            console.log(prefix + 'status');
         }
 
 
@@ -160,35 +165,37 @@ client.on('message', message => {
             message.channel.sendMessage('', {
               embed: {
                 author: {
-                  name: client.user.username,
-                  icon_url: client.user.avatarURL
+                  name: client.user.username
                 },
                 color: 0x008AF3,
                 title: 'No permissions',
                 description: 'I don\'t have the required permissionsto change my nickname.',
                 timestamp: new Date(),
                 footer: {
-                  text: 'CringyBot Selfbot edition'
+                  text: 'CringyBot Selfbot edition',
+                  icon_url: client.user.avatarURL
                 }
               }
             });
+            console.log(prefix + 'nick');
           } else {
               message.guild.member(client.user).setNickname(nickname);
               message.channel.sendMessage('', {
                 embed: {
                   author: {
-                    name: client.user.username,
-                    icon_url: client.user.avatarURL
+                    name: client.user.username
                   },
                   color: 0x008AF3,
                   title: 'Nickname changed successfully!',
                   description: `Nickname changed to **${nickname}**!`,
                   timestamp: new Date(),
                   footer: {
-                    text: 'CringyBot Selfbot edition'
+                    text: 'CringyBot Selfbot edition',
+                    icon_url: client.user.avatarURL
                   }
                 }
               });
+              console.log(prefix + 'nick');
             }
           }
 
@@ -203,10 +210,12 @@ client.on('message', message => {
               },
               timestamp: new Date(),
               footer: {
-                  text: 'CringyBot Selfbot edition'
+                  text: 'CringyBot Selfbot edition',
+                  icon_url: client.user.avatarURL
             }
           }
         });
+        console.log(prefix + 'lewis/levis');
       }
 
         if (message.content.startsWith(prefix + 'hammer')) {
@@ -219,10 +228,12 @@ client.on('message', message => {
                 },
                 timestamp: new Date(),
                 footer: {
-                    text: 'CringyBot Selfbot edition'
+                    text: 'CringyBot Selfbot edition',
+                    icon_url: client.user.avatarURL
               }
             }
           });
+          console.log(prefix + 'hammer');
         }
 
 
@@ -231,15 +242,18 @@ client.on('message', message => {
             message.channel.sendMessage('', {
                 embed: {
                     author: {
-                      name: client.user.username,
-                      icon_url: client.user.avatarURL
+                      name: client.user.username
                     },
                     color: 0x008AF3,
                     title: "Date and time",
                     description: `${moment().format('MMMM Do YYYY, h:mm:ss a')}`,
-                    text: `CringyBot Selfbot edition`
+                    footer: {
+                      text: 'CringyBot Selfbot edition',
+                      icon_url: client.user.avatarURL
+                    }
                 }
             });
+            console.log(prefix + 'time');
         }
 
 
@@ -251,22 +265,38 @@ client.on('message', message => {
                 embed: {
                     color: 0x008AF3,
                     author: {
-                      name: client.user.username,
-                      icon_url: client.user.avatarURL
+                      name: client.user.username
                     },
                     description: '' + input,
                     timestamp: new Date(),
                     footer: {
-                        text: 'CringyBot Selfbot edition'
+                        text: 'CringyBot Selfbot edition',
+                        icon_url: client.user.avatarURL
                     }
                 }
             });
+            console.log(prefix + 'embed');
+        }
+
+
+        if (message.content.startsWith(prefix + 'smallembed')) {
+            message.delete();
+            let args = message.content.split(" ").slice(1);
+            let input = args.join(" ");
+            message.channel.sendMessage('', {
+                embed: {
+                    color: 0x008AF3,
+                    description: '' + input,
+                }
+            });
+            console.log(prefix + 'smallembed');
         }
 
 
         if (message.content.startsWith(prefix + 'rickroll')) {
           message.delete();
           message.channel.sendMessage('https://youtu.be/dQw4w9WgXcQ');
+          console.log(prefix + 'rickroll');
         }
 
 
@@ -276,18 +306,19 @@ client.on('message', message => {
           message.channel.sendMessage('', {
             embed: {
               author: {
-                name: client.user.username,
-                icon_url: client.user.avatarURL
+                name: client.user.username
               },
               color: 0x008AF3,
               title: 'Github repository link:',
               description: `Click [here](${link}) to go to the CringyBotSelf Github repository.`,
               timestamp: new Date,
               footer: {
-                text: 'CringyBot Selfbot edition'
+                text: 'CringyBot Selfbot edition',
+                icon_url: client.user.avatarURL
               }
             }
           });
+          console.log(prefix + 'github');
         }
 
 
@@ -299,24 +330,26 @@ client.on('message', message => {
           message.channel.sendMessage('', {
             embed : {
               author: {
-                name: client.user.username,
-                icon_url: client.user.avatarURL
+                name: client.user.username
               },
               title: 'Game successfully changed!',
               color: 0x008AF3,
               description: `Game changed to **${game}**!`,
               timestamp: new Date(),
               footer: {
-                text: 'CringyBot Selfbot edition'
+                text: 'CringyBot Selfbot edition',
+                icon_url: client.user.avatarURL
               }
             }
           });
+          console.log(prefix + 'game');
         }
 
 
         if (message.content.startsWith(prefix + 'lenny')) {
           message.delete();
           message.channel.sendMessage('**( ͡° ͜ʖ ͡°)**');
+          console.log(prefix + 'lenny');
         }
 
 
@@ -325,73 +358,76 @@ client.on('message', message => {
             message.channel.sendMessage('', {
               embed: {
                 author: {
-                  name: client.user.username,
-                  icon_url:client.user.avatarURL
+                  name: client.user.username
                 },
                 color: 0x88AF3,
                 title: 'Syntax error',
                 description: 'No user mentioned. can\'t kick.',
                 timestamp: new Date(),
                 footer: {
-                  text: 'CringyBot Selfbot edition'
+                  text: 'CringyBot Selfbot edition',
+                  icon_url: client.user.avatarURL
                 }
               }
             });
+            console.log(prefix + 'kick ' + kickMember);
           }
           let kickMember = message.guild.member(message.mentions.users.first());
           if (!kickMember) {
             message.channel.sendMessage('', {
               embed: {
                 author: {
-                  name: client.user.username,
-                  icon_url:client.user.avatarURL
+                  name: client.user.username
                 },
                 color: 0x88AF3,
                 title: 'Invalid user',
                 description: 'That user is invalid.',
                 timestamp: new Date(),
                 footer: {
-                  text: 'CringyBot Selfbot edition'
+                  text: 'CringyBot Selfbot edition',
+                  icon_url: client.user.avatarURL
                 }
               }
             });
+            console.log(prefix + 'kick ' + kickMember);
           }
           if (!message.guild.member(client.user).hasPermission('KICK_MEMBERS')) {
             message.channel.sendMessage('', {
               embed: {
                 author: {
-                  name: client.user.username,
-                  icon_url:client.user.avatarURL
+                  name: client.user.username
                 },
                 color: 0x88AF3,
                 title: 'No permissions',
                 description: `I don\'t have the required permissions to kick ${kickMember}.`,
                 timestamp: new Date(),
                 footer: {
-                  text: 'CringyBot Selfbot edition'
+                  text: 'CringyBot Selfbot edition',
+                  icon_url: client.user.avatarURL
                 }
               }
             });
+            console.log(prefix + 'kick ' + kickMember);
           }
           message.delete();
           kickMember.kick().then(member => {
             message.channel.sendMessage('', {
               embed: {
                 author: {
-                  name: client.user.username,
-                  icon_url:client.user.avatarURL
+                  name: client.user.username
                 },
                 color: 0x88AF3,
                 title: `Successfully kicked ${kickMember}`,
                 description: 'Ohh, that felt good.',
                 timestamp: new Date(),
                 footer: {
-                  text: 'CringyBot Selfbot edition'
+                  text: 'CringyBot Selfbot edition',
+                  icon_url: client.user.avatarURL
                 }
               }
             });
           });
-
+          console.log(prefix + 'kick ' + kickMember);
         }
 
 
@@ -406,15 +442,15 @@ client.on('message', message => {
                   message.channel.sendMessage('', {
                     embed: {
                       author: {
-                        name: client.user.username,
-                        icon_url:client.user.avatarURL
+                        name: client.user.username
                       },
                       color: 0x88AF3,
                       title: 'Security warning!',
                       description: 'Successfully blocked token leak!',
                       timestamp: new Date(),
                       footer: {
-                        text: 'CringyBot Selfbot edition'
+                        text: 'CringyBot Selfbot edition',
+                        icon_url: client.user.avatarURL
                       }
                     }
                   });
@@ -424,10 +460,9 @@ client.on('message', message => {
             } catch (err) {
                 message.channel.sendMessage(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
             }
-
+            console.log(prefix + 'eval ' + evaled);
         }
   });
 
 
 client.login(token);
-
