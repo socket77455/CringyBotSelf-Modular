@@ -7,12 +7,14 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const moment = require('moment');
-const config = require("./config.json")
-let prefix = require("./config.json").prefix
-let token = require("./config.json").token
-require('moment-duration-format')
-const package = require("./package.json")
-const version = require("./package.json").version
+const config = require("./config.json");
+let prefix = require("./config.json").prefix;
+let token = require("./config.json").token;
+require('moment-duration-format');
+const package = require("./package.json");
+const version = require("./package.json").version;
+const google = require('google');
+var afk;
 
 // Clean function for the eval command:
 function clean(text) {
@@ -22,14 +24,14 @@ function clean(text) {
         return text;
 }
 
-var footerText = "CringyBot Selfbot edition";
 
 client.on('ready', () => {
     console.log(`------------------------`);
-    console.log(`Logged in as ${client.user.username}#${client.user.discriminator}!`);
+    console.log(`Logged in as ${client.user.tag}!`);
     console.log(`------------------------`);
     console.log(`Cringy logs:`);
-
+    afk = false;
+    client.user.setGame("ecks dee");
 });
 
 client.on('message', message => {
@@ -41,9 +43,35 @@ client.on('message', message => {
         }
 
 
+        if (message.content.startsWith(prefix + 'afk')) {
+          if(afk == true) {
+            afk = false;
+            message.delete();
+            message.channel.send('', {
+              embed: {
+                color: 0x4CAF50,
+                description: 'I am no longer AFK!'
+              }
+            })
+            client.user.setGame("ecks dee");
+          } else if(afk == false) {
+            afk = true;
+            message.delete();
+            message.channel.send('', {
+              embed: {
+                color: 0xC62828,
+                description: 'I am now AFK! Sorry...'
+              }
+            })
+            client.user.setGame("AFK | DM or mention me if you need something");
+          }
+          console.log(prefix + 'afk');
+        }
+
+
         if (message.content.startsWith(prefix + 'info')) {
             message.delete();
-            message.channel.sendMessage('', {
+            message.channel.send('', {
                 embed: {
                     author: {
                       name: client.user.username
@@ -63,7 +91,7 @@ client.on('message', message => {
 
         if (message.content.startsWith(prefix + 'ping')) {
             message.delete();
-            message.channel.sendMessage('', {
+            message.channel.send('', {
                 embed: {
                     author: {
                       name: client.user.username,
@@ -79,32 +107,40 @@ client.on('message', message => {
 
 
         if (message.content.startsWith(prefix + 'google')) {
-            let args = message.content.split(" ").slice(1);
-            let search = args.join(' ');
-            let input = args.join("+");
-            let link = "https://www.google.com/search?site=&source=hp&q=" + input;
-            message.delete();
-            message.channel.sendMessage('', {
-              embed: {
-                author: {
-                  name: client.user.username
-                },
-                color: 0x008AF3,
-                title: 'Google search results:',
-                description: `Results for **${search}**: Click [here](${link})!`,
-                timestamp: new Date(),
-                footer: {
-                  text: 'CringyBot Selfbot edition',
-                  icon_url: client.user.avatarURL
+          let args = message.content.split(" ").slice(1);
+          let input = args.join(" ");
+          google.resultsPerPage = 1
+          var nextCounter = 0
+          google(input, function (err, res){
+             if (err) console.error(err);
+              for (var i = 0; i < res.links.length; ++i) {
+              var link = res.links[i];
+              message.delete();
+              message.channel.send('', {
+                embed: {
+                  author: {
+                    name: client.user.username,
+                    icon_url: "http://i.imgur.com/EdV2r11.png"
+                  },
+                  title: `${link.title}`,
+                  url: `${link.href}`,
+                  color: 0x008AF3,
+                  description: `${link.description}\n**Click [here](${link.href}) to go to the link.**`,
+                  timestamp: new Date(),
+                  footer: {
+                    text: 'CringyBot Normal edition',
+                    icon_url: client.user.avatarURL
+                  }
                 }
-              }
-          });
-          console.log(prefix + 'ping');
+              })
+            }
+          })
+          console.log(prefix + `google ${input}`);
         }
 
         if (message.content.startsWith(prefix + 'help')) {
             message.delete();
-            message.channel.sendMessage('', {
+            message.channel.send('', {
                 embed: {
                   author: {
                     name: client.user.username
@@ -127,7 +163,7 @@ client.on('message', message => {
 
         if (message.content.startsWith(prefix + 'status')) {
             message.delete();
-            message.channel.sendMessage('', {
+            message.channel.send('', {
                 embed: {
                   author: {
                     name: client.user.username
@@ -162,7 +198,7 @@ client.on('message', message => {
           let nickname = args.join(" ");
           message.delete();
           if (!message.guild.member(client.user).hasPermission('CHANGE_NICKNAME')) {
-            message.channel.sendMessage('', {
+            message.channel.send('', {
               embed: {
                 author: {
                   name: client.user.username
@@ -180,7 +216,7 @@ client.on('message', message => {
             console.log(prefix + 'nick');
           } else {
               message.guild.member(client.user).setNickname(nickname);
-              message.channel.sendMessage('', {
+              message.channel.send('', {
                 embed: {
                   author: {
                     name: client.user.username
@@ -202,7 +238,7 @@ client.on('message', message => {
 
         if (message.content.startsWith(prefix + 'lewis') || message.content.startsWith(prefix + 'levis')) {
           message.delete();
-          message.channel.sendMessage('', {
+          message.channel.send('', {
             embed: {
               color: 0x008AF3,
               image: {
@@ -220,7 +256,7 @@ client.on('message', message => {
 
         if (message.content.startsWith(prefix + 'hammer')) {
             message.delete();
-            message.channel.sendMessage('', {
+            message.channel.send('', {
               embed: {
                 color: 0x008AF3,
                 image: {
@@ -239,7 +275,7 @@ client.on('message', message => {
 
         if (message.content.startsWith(prefix + 'time')) {
             message.delete();
-            message.channel.sendMessage('', {
+            message.channel.send('', {
                 embed: {
                     author: {
                       name: client.user.username
@@ -261,7 +297,7 @@ client.on('message', message => {
             message.delete();
             let args = message.content.split(" ").slice(1);
             let input = args.join(" ");
-            message.channel.sendMessage('', {
+            message.channel.send('', {
                 embed: {
                     color: 0x008AF3,
                     author: {
@@ -283,7 +319,7 @@ client.on('message', message => {
             message.delete();
             let args = message.content.split(" ").slice(1);
             let input = args.join(" ");
-            message.channel.sendMessage('', {
+            message.channel.send('', {
                 embed: {
                     color: 0x008AF3,
                     description: '' + input,
@@ -295,7 +331,7 @@ client.on('message', message => {
 
         if (message.content.startsWith(prefix + 'rickroll')) {
           message.delete();
-          message.channel.sendMessage('https://youtu.be/dQw4w9WgXcQ');
+          message.channel.send('https://youtu.be/dQw4w9WgXcQ');
           console.log(prefix + 'rickroll');
         }
 
@@ -303,7 +339,7 @@ client.on('message', message => {
         if (message.content.startsWith(prefix + 'github')) {
           message.delete();
           var link = "https://github.com/CringyAdam/CringyBotSelf";
-          message.channel.sendMessage('', {
+          message.channel.send('', {
             embed: {
               author: {
                 name: client.user.username
@@ -327,7 +363,7 @@ client.on('message', message => {
           let args = message.content.split(" ").slice(1);
           let game = args.join(" ");
           client.user.setGame(game);
-          message.channel.sendMessage('', {
+          message.channel.send('', {
             embed : {
               author: {
                 name: client.user.username
@@ -348,14 +384,14 @@ client.on('message', message => {
 
         if (message.content.startsWith(prefix + 'lenny')) {
           message.delete();
-          message.channel.sendMessage('**( ͡° ͜ʖ ͡°)**');
+          message.channel.send('**( ͡° ͜ʖ ͡°)**');
           console.log(prefix + 'lenny');
         }
 
 
         if (message.content.startsWith(prefix + 'kick')) {
           if (message.mentions.users.size == 0) {
-            message.channel.sendMessage('', {
+            message.channel.send('', {
               embed: {
                 author: {
                   name: client.user.username
@@ -374,7 +410,7 @@ client.on('message', message => {
           }
           let kickMember = message.guild.member(message.mentions.users.first());
           if (!kickMember) {
-            message.channel.sendMessage('', {
+            message.channel.send('', {
               embed: {
                 author: {
                   name: client.user.username
@@ -392,7 +428,7 @@ client.on('message', message => {
             console.log(prefix + 'kick ' + kickMember);
           }
           if (!message.guild.member(client.user).hasPermission('KICK_MEMBERS')) {
-            message.channel.sendMessage('', {
+            message.channel.send('', {
               embed: {
                 author: {
                   name: client.user.username
@@ -411,7 +447,7 @@ client.on('message', message => {
           }
           message.delete();
           kickMember.kick().then(member => {
-            message.channel.sendMessage('', {
+            message.channel.send('', {
               embed: {
                 author: {
                   name: client.user.username
@@ -434,16 +470,16 @@ client.on('message', message => {
         if (message.content.startsWith(prefix + 'stream')) {
           let args = message.content.split(" ").slice(1);
           let stream = args.join(" ");
-          client.user.setGame(stream, 'http://twitch.tv/cringyadam', 1);
+          client.user.setGame(stream, 'http://twitch.tv/cringyadam');
           message.delete();
-          message.channel.sendMessage('', {
+          message.channel.send('', {
             embed : {
               author: {
                 name: client.user.username
               },
               title: 'Streaming status successfully changed!',
               color: 0x008AF3,
-              description: `Stream changed to **${stream}**!`,
+              description: `Streaming info changed to **${stream}**!`,
               timestamp: new Date(),
               footer: {
                 text: 'CringyBot Normal edition',
@@ -463,7 +499,7 @@ client.on('message', message => {
                 if (typeof evaled !== "string") {
                     evaled = require("util").inspect(evaled);
                 } else if (code == 'client.token' || code == 'token' || evaled == 'client.token' || evaled == 'token') {
-                  message.channel.sendMessage('', {
+                  message.channel.send('', {
                     embed: {
                       author: {
                         name: client.user.username
@@ -482,7 +518,7 @@ client.on('message', message => {
                 }
                 message.channel.sendCode("xl", clean(evaled));
             } catch (err) {
-                message.channel.sendMessage(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+                message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
             }
             console.log(prefix + 'eval/exec ' + evaled);
         }
