@@ -1,10 +1,10 @@
 {
-  "name": "cringybotself",
-  "version": "2.2",
+  "name": "cringybotself-modular",
+  "version": "1.0",
   "description": "Selfbot by Cringy Adam!",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "forever app.js"
   },
   "keywords": [
     "discord.js",
