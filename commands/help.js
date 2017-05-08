@@ -19,13 +19,14 @@ exports.run = (client, message, args) => {
             **${config.prefix}github** - sends link to github.
             **${config.prefix}help** - displays this message.
             **${config.prefix}google** - searches Google.
-            **${config.prefix}spam** <number>  - spams a message. USE WITH CAUTION!
+            **${config.prefix}spam** <number>  - spams a message. **USE WITH CAUTION!**
             **${config.prefix}nick** - changes your nickname on this server.
             **${config.prefix}game** - changes the game you're playing.
             **${config.prefix}stream** - changes the streaming status.
             **${config.prefix}embed** - puts messages in an embed with your user name and profile pic.
             **${config.prefix}smallembed** - embeds stuff in a smaller form.
             **${config.prefix}status** - displays info about you.
+	   **${config.prefix}purge** <number> - purges a number of your messages.
             **${config.prefix}eval** - evaluates and executes JS code that's it.
             **${config.prefix}hammer** - sends the discord ban hammer gif.
             **${config.prefix}lewis** - shows a really good pic of ya boi Lew.
