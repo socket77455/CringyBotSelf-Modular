@@ -1,4 +1,5 @@
 {
   "prefix": "<PREFIX HERE>",
-  "token": "<TOKEN HERE>"
+  "token": "<TOKEN HERE>",
+  "logchannel": "<LOG CHANNEL HERE>"
 }
