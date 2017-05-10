@@ -5,7 +5,6 @@
 */
 
 exports.run = (client, message, args) => {
-    let args = message.content.split(" ").slice(1);
     let stream = args.join(" ");
     client.user.setGame(stream, 'http://twitch.tv/cringyadam');
     message.delete();
