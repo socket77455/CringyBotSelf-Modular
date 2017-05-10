@@ -5,7 +5,6 @@
 */
 
 exports.run = (client, message, args) => {
-    let args = message.content.split(" ").slice(1);
     let nickname = args.join(" ");
     message.delete();
     if (!message.guild.member(client.user).hasPermission('CHANGE_NICKNAME')) {
