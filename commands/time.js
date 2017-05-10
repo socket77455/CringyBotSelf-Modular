@@ -4,6 +4,8 @@
        Twitter: @AdamAharony, Discord: @Cringy Adam#4611
 */
 
+const moment = require('moment');
+require('moment-duration-format');
 exports.run = (client, message, args) => {
     message.delete();
     message.channel.send('', {
