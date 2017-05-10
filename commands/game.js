@@ -6,7 +6,6 @@
 
 exports.run = (client, message, args) => {
     message.delete();
-    let args = message.content.split(" ").slice(1);
     let game = args.join(" ");
     client.user.setGame(game);
     message.channel.send('', {
