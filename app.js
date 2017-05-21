@@ -25,6 +25,32 @@ fs.readdir("./events/", (err, files) => {
 
 
 client.on('message', message => {
+    if (message.mentions.users.has(client.user.id)) {
+        if (message.author.id === client.user.id) return;
+        client.channels.get(logchannel).send('', {
+            embed: {
+                author: {
+                    name: client.user.username
+                },
+                title: 'We have a mention!',
+                color: 0x008AF3,
+                fields: [{
+                    name: 'From:',
+                    value: `${message.author.tag} in ${message.guild.name}`
+                },
+                {
+                    name: 'Message content:',
+                    value: `${message.content}`
+                }],
+                timestamp: new Date(),
+                footer: {
+                    text: 'CringyBot Selfbot edition',
+                    icon_url: client.user.avatarURL
+                }
+            }
+          });
+    }
+    
     if (message.author.id !== client.user.id) return;
     if (!message.content.startsWith(prefix)) return;
     let command = message.content.split(" ")[0];
@@ -35,7 +61,7 @@ client.on('message', message => {
     try {
         let commandFile = require(`./commands/${command}.js`);
         commandFile.run(client, message, args);
-        console.log(prefix + command);
+        console.log(`${prefix}${command}`);
         client.channels.get(logchannel).send(`**${prefix}${command}**`);
   } catch (err) {
         console.error(err);
