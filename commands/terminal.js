@@ -18,7 +18,7 @@ exports.run = async (client, message, args) => {
     const outMessage = await message.channel.send(runningMessage);
     let stdOut = await doExec(command).catch(data=> outputErr(outMessage, data));
     stdOut = stdOut.substring(0, 1750);
-    outMessage.edit(`\`OUTPUT\`\n\`\`\`\`\`sh${clean(stdOut)}\`\`\``);
+    outMessage.edit(`\`OUTPUT\`\n\`\`\`\`sh${clean(stdOut)}\`\`\``);
     };
 
     const outputErr = (message, stdData) => {
