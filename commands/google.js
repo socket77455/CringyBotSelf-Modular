@@ -26,7 +26,7 @@ exports.run = (client, message, args) => {
                 description: `${link.description}\n**Click [here](${link.href}) to go to the link.**`,
                 timestamp: new Date(),
                 footer: {
-                    text: 'CringyBot Normal edition',
+                    text: 'CringyBot Selfbot edition',
                     icon_url: client.user.avatarURL
                 }
             }
