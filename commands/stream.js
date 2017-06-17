@@ -18,7 +18,7 @@ exports.run = (client, message, args) => {
             description: `Streaming info changed to **${stream}**!`,
             timestamp: new Date(),
             footer: {
-                text: 'CringyBot Normal edition',
+                text: 'CringyBot Selfbot edition',
                 icon_url: client.user.avatarURL
             }
         }
