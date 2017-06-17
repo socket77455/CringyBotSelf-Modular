@@ -8,7 +8,7 @@ const asciify = require('asciify');
 exports.run = (client, message, args) => {
     let textasciify = args.join(" ")
     if (!textasciify) return message.edit("Turning no text into ascii would be pointless")
-    asciify(textasciify, function (err, res) {
+    asciify(textasciify, {font: 'standard'}, function (err, res) {
       if (err) {
         console.error(err)
         message.channel.send(`There was an error when trying to convert text. Error: \`\`\`${err}\`\`\``)
