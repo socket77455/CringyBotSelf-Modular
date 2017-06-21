@@ -25,6 +25,7 @@ exports.run = (client, message, args) => {
 **${config.prefix}game** - changes the game you're playing.
 **${config.prefix}stream** - changes the streaming status.
 **${config.prefix}embed** - puts messages in an embed with your user name and profile pic.
+**${config.prefix}emoji** <text> (replace spaces with \`-\`) - switches characters with emoji ones.
 **${config.prefix}smallembed** - embeds stuff in a smaller form.
 **${config.prefix}status** - displays info about you.
 **${config.prefix}purge** <number> - purges a number of your messages.
