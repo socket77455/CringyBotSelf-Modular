@@ -21,7 +21,7 @@ exports.run = (client, message, args) => {
     var map = {
         'a' : '🇦 ',
         'b' : '🇧 ',
-        'c' : '🇧 ',
+        'c' : '🇨 ',
         'd' : '🇩 ',
         'e' : '🇪 ',
         'f' : '🇫 ',
@@ -45,7 +45,7 @@ exports.run = (client, message, args) => {
         'x' : '🇽 ',
         'y' : '🇾 ',
         'z' : '🇿 ',
-        ' ' : '   '
+        '-' : '   '
     };
 
     message.edit(replaceAll(str, map));
