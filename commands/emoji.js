@@ -44,7 +44,8 @@ exports.run = (client, message, args) => {
         'w' : '🇼 ',
         'x' : '🇽 ',
         'y' : '🇾 ',
-        'z' : '🇿 '
+        'z' : '🇿 ',
+        ' ' : '   '
     };
 
     message.edit(replaceAll(str, map));
