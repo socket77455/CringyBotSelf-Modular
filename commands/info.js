@@ -13,7 +13,7 @@ exports.run = (client, message, args) => {
             },
             color: 0x008AF3,
             title: "CringyBot Selfbot edition info:",
-            description: 'This selfbot is made by Adam Aharony (a.k.a. Cringy Adam).\n(Twitter: @AdamAharony)\nAiming to make the discord experience much better.\nSpecial thanks to Jayden#5395 for helping me with some commands.',
+            description: 'This selfbot is made by Adam Aharony (bot origionally from @XeliteXirish (a.k.a. Cringy Adam).\n(Twitter: @AdamAharony)\nAiming to make the discord experience much better.\nSpecial thanks to Jayden#5395 for helping me with some commands.',
             timestamp: new Date(),
             footer: {
                 text: 'CringyBot Selfbot edition',
